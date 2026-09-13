@@ -1,5 +1,5 @@
 import Profile from "@/components/Profile";
-import LinkCard from "@/components/LinkCard";
+import LinkList from "@/components/LinkList";
 
 const links = [
   {
@@ -31,11 +31,7 @@ export default function Home() {
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center gap-8 rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-xl shadow-slate-200/60 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
           <Profile name="홍길동" bio="세계 최강 바이브코드" />
-          <div className="flex w-full flex-col gap-3">
-            {links.map((link) => (
-              <LinkCard key={link.id} {...link} />
-            ))}
-          </div>
+          <LinkList links={links} />
         </div>
         <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-600">
           © 2026 링크나무

@@ -3,6 +3,23 @@ import { getDb } from "@/lib/mongodb";
 
 const TRACKABLE_IDS = ["profile", "github", "linkedin", "blog"];
 
+export async function GET() {
+  const db = await getDb();
+  const docs = await db
+    .collection<{ _id: string; count: number }>("clicks")
+    .find({ _id: { $in: TRACKABLE_IDS } })
+    .toArray();
+
+  const counts: Record<string, number> = Object.fromEntries(
+    TRACKABLE_IDS.map((id) => [id, 0])
+  );
+  for (const doc of docs) {
+    counts[doc._id] = doc.count;
+  }
+
+  return NextResponse.json(counts);
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const id = typeof body?.id === "string" ? body.id : null;

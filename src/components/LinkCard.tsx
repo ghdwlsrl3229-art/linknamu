@@ -8,15 +8,30 @@ type LinkCardProps = {
   url: string;
   icon: string;
   accent: string;
+  count: number;
+  onIncrement?: (id: string) => void;
 };
 
-export default function LinkCard({ id, label, url, icon, accent }: LinkCardProps) {
+export default function LinkCard({
+  id,
+  label,
+  url,
+  icon,
+  accent,
+  count,
+  onIncrement,
+}: LinkCardProps) {
+  const handleClick = () => {
+    trackClick(id);
+    onIncrement?.(id);
+  };
+
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackClick(id)}
+      onClick={handleClick}
       className="group flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.07]"
     >
       <span
@@ -25,6 +40,9 @@ export default function LinkCard({ id, label, url, icon, accent }: LinkCardProps
         {icon}
       </span>
       <span className="flex-1 font-medium text-slate-800 dark:text-slate-100">{label}</span>
+      <span className="shrink-0 text-xs tabular-nums text-slate-400 dark:text-slate-500">
+        {count.toLocaleString()}회
+      </span>
       <span
         aria-hidden
         className="text-slate-300 transition-transform duration-200 group-hover:translate-x-0.5 dark:text-slate-600"
