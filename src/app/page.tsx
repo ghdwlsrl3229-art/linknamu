@@ -2,9 +2,9 @@ import Profile from "@/components/Profile";
 import LinkCard from "@/components/LinkCard";
 
 const links = [
-  { label: "GitHub", url: "https://github.com/username" },
-  { label: "LinkedIn", url: "https://linkedin.com/in/username" },
-  { label: "Blog", url: "https://blog.example.com" },
+  { id: "github", label: "GitHub", url: "https://github.com/username" },
+  { id: "linkedin", label: "LinkedIn", url: "https://linkedin.com/in/username" },
+  { id: "blog", label: "Blog", url: "https://blog.example.com" },
 ];
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
       <Profile name="홍길동" bio="세계 최강 바이브코드" />
       <div className="flex w-full flex-col gap-3">
         {links.map((link) => (
-          <LinkCard key={link.label} label={link.label} url={link.url} />
+          <LinkCard key={link.id} id={link.id} label={link.label} url={link.url} />
         ))}
       </div>
     </main>
